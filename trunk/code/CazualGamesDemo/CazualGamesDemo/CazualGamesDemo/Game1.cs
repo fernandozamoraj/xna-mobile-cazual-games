@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CazualGames.Controls;
+using CazualGames.FrameWork;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -20,14 +22,22 @@ namespace CazualGamesDemo
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private GameScreenManager _gameScreenManager;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+            _gameScreenManager = new GameScreenManager(this);
+            _gameScreenManager.RegisterGameScreen<StartScreen>(new StartScreen());
+            _gameScreenManager.RegisterGameScreen<LevelScreen>(new LevelScreen());
+
             // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
         }
+
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -37,6 +47,7 @@ namespace CazualGamesDemo
         /// </summary>
         protected override void Initialize()
         {
+
             // TODO: Add your initialization logic here
 
             base.Initialize();
@@ -48,10 +59,11 @@ namespace CazualGamesDemo
         /// </summary>
         protected override void LoadContent()
         {
+            _gameScreenManager.ChangeScreenTo<StartScreen>();
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -74,8 +86,7 @@ namespace CazualGamesDemo
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
-
+            _gameScreenManager.CurrentScreen.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -87,9 +98,78 @@ namespace CazualGamesDemo
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
 
+            _gameScreenManager.CurrentScreen.Draw(spriteBatch);
+
+            spriteBatch.End();
             base.Draw(gameTime);
+        }
+    }
+
+    public class StartScreen : GameScreen
+    {
+        private Button _startGameButton;
+        private Texture2D _buttonTexture;
+
+        public override void Update(GameTime gameTime)
+        {
+            _startGameButton.Update();
+            if(_startGameButton.IsPressed)
+                NavigateToScreen<LevelScreen>();
+
+            base.Update(gameTime);
+        }
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            this.LoadContent(this.Game.Content);
+
+            _startGameButton = new Button(new Vector2(0, 100), _buttonTexture.Width, _buttonTexture.Height, true);
+        }
+
+        public override void LoadContent(ContentManager content)
+        {
+            _buttonTexture = content.Load<Texture2D>("start_game");
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            _startGameButton.Draw(spriteBatch, _buttonTexture);
+
+            base.Draw(spriteBatch);
+        }
+    }
+
+    public class LevelScreen : GameScreen
+    {
+        private Texture2D _carTexture;
+        private int _speed = 5;
+        private int _xLocation = 400;
+
+        public override void Update(GameTime gameTime)
+        {
+            _xLocation -= _speed;
+
+            if (_xLocation + _carTexture.Width < -5)
+                _xLocation = this.Game.GraphicsDevice.Viewport.Width;
+
+
+            base.Update(gameTime);
+        }
+        
+        public override void LoadContent(ContentManager content)
+        {
+            _carTexture = content.Load<Texture2D>("red_car");
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(_carTexture, new Vector2(_xLocation, 300), Color.White);
+        
+            base.Draw(spriteBatch);
         }
     }
 }
