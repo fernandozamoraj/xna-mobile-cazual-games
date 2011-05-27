@@ -108,6 +108,10 @@
       <XnaReferenceType>Content</XnaReferenceType>
       <Project>{0C1F17EC-887F-4344-A659-7181B2C6AC4E}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\CazualGames\CazualGames.csproj">
+      <Project>{55801FF4-F007-4171-93F7-5CFE62DD96BA}</Project>
+      <Name>CazualGames</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />

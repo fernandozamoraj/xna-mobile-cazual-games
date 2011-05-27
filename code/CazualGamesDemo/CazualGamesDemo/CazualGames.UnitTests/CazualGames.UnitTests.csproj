@@ -84,7 +84,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="XnaMobileUnit">
-      <HintPath>..\..\Library\XnaMobileUnit.dll</HintPath>
+      <HintPath>..\Library\XnaMobileUnit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
