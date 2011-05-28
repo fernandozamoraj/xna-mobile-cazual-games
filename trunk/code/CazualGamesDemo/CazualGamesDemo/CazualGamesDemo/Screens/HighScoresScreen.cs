@@ -33,13 +33,10 @@ namespace CazualGamesDemo.Screens
         {
             Vector2 fontSize = _scoresFont.MeasureString("W");
 
-            fontSize.Y += 5;
+            fontSize.Y += 2;
 
             Func<int,float, float, float> computeHeight =
-                (lineIndex, fontHeight, offset) =>
-                    {
-                        return (lineIndex*fontHeight) + offset;
-                    }; 
+                (lineIndex, fontHeight, offset) => (lineIndex*fontHeight) + offset; 
 
             //Hard coded scores
             spriteBatch.DrawString(_scoresFont, string.Format("{0}{1}", "Joe".PadRight(10), "1024".PadLeft(6)), 

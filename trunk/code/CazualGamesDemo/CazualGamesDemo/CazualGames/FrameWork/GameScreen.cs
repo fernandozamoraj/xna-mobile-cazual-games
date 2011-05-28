@@ -1,4 +1,3 @@
-using System;
 using System.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -9,13 +8,9 @@ namespace CazualGames.FrameWork
 {
     public abstract class GameScreen : IGameScreen
     {
-        public GameScreen()
-        {
-        }
-
         public virtual void Initialize()
         {
-            LoadContent(this.Game.Content);
+            LoadContent(Game.Content);
         }
 
         public abstract void LoadContent(ContentManager content);
@@ -39,7 +34,7 @@ namespace CazualGames.FrameWork
         public Game Game { get; set; }
         public void NavigateToScreen<T>() where T : IGameScreen
         {
-            this.GameScreenManager.ChangeScreenTo<T>();
+            GameScreenManager.ChangeScreenTo<T>();
         }
 
         private void GoToPreviousScreen<TPreviousScreen>() where TPreviousScreen : IGameScreen
@@ -69,9 +64,8 @@ namespace CazualGames.FrameWork
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             {
-                MessageBoxResult messageBoxResult = MessageBoxResult.OK;
-
-                messageBoxResult = MessageBox.Show("Press OK to go exit.", "Warning", MessageBoxButton.OKCancel);
+                MessageBoxResult messageBoxResult =
+                    MessageBox.Show("Press OK to exit.", "Warning", MessageBoxButton.OKCancel);
                 
                 if (messageBoxResult == MessageBoxResult.OK)
                     Game.Exit();
