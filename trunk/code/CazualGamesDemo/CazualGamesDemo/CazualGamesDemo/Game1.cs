@@ -1,16 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using CazualGames.Controls;
 using CazualGames.FrameWork;
+using CazualGamesDemo.Screens;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
-using Microsoft.Xna.Framework.Media;
 
 namespace CazualGamesDemo
 {
@@ -32,6 +25,8 @@ namespace CazualGamesDemo
             _gameScreenManager = new GameScreenManager(this);
             _gameScreenManager.RegisterGameScreen<StartScreen>(new StartScreen());
             _gameScreenManager.RegisterGameScreen<LevelScreen>(new LevelScreen());
+            _gameScreenManager.RegisterGameScreen<HighScoresScreen>(new HighScoresScreen());
+            _gameScreenManager.RegisterGameScreen<TutorialScreen>(new TutorialScreen());
 
             // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
@@ -82,10 +77,6 @@ namespace CazualGamesDemo
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             _gameScreenManager.CurrentScreen.Update(gameTime);
             base.Update(gameTime);
         }
@@ -104,72 +95,6 @@ namespace CazualGamesDemo
 
             spriteBatch.End();
             base.Draw(gameTime);
-        }
-    }
-
-    public class StartScreen : GameScreen
-    {
-        private Button _startGameButton;
-        private Texture2D _buttonTexture;
-
-        public override void Update(GameTime gameTime)
-        {
-            _startGameButton.Update();
-            if(_startGameButton.IsPressed)
-                NavigateToScreen<LevelScreen>();
-
-            base.Update(gameTime);
-        }
-        public override void Initialize()
-        {
-            base.Initialize();
-
-            this.LoadContent(this.Game.Content);
-
-            _startGameButton = new Button(new Vector2(0, 100), _buttonTexture.Width, _buttonTexture.Height, true);
-        }
-
-        public override void LoadContent(ContentManager content)
-        {
-            _buttonTexture = content.Load<Texture2D>("start_game");
-
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            _startGameButton.Draw(spriteBatch, _buttonTexture);
-
-            base.Draw(spriteBatch);
-        }
-    }
-
-    public class LevelScreen : GameScreen
-    {
-        private Texture2D _carTexture;
-        private int _speed = 5;
-        private int _xLocation = 400;
-
-        public override void Update(GameTime gameTime)
-        {
-            _xLocation -= _speed;
-
-            if (_xLocation + _carTexture.Width < -5)
-                _xLocation = this.Game.GraphicsDevice.Viewport.Width;
-
-
-            base.Update(gameTime);
-        }
-        
-        public override void LoadContent(ContentManager content)
-        {
-            _carTexture = content.Load<Texture2D>("red_car");
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(_carTexture, new Vector2(_xLocation, 300), Color.White);
-        
-            base.Draw(spriteBatch);
         }
     }
 }

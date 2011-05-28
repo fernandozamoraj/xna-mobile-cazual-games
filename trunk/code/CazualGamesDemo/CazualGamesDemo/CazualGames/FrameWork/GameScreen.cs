@@ -1,7 +1,9 @@
 using System;
+using System.Windows;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace CazualGames.FrameWork
 {
@@ -38,6 +40,42 @@ namespace CazualGames.FrameWork
         public void NavigateToScreen<T>() where T : IGameScreen
         {
             this.GameScreenManager.ChangeScreenTo<T>();
+        }
+
+        private void GoToPreviousScreen<TPreviousScreen>() where TPreviousScreen : IGameScreen
+        {
+            NavigateToScreen<TPreviousScreen>();
+        }
+
+        protected void HandleBackToPreviousScreenButton<TPreviouScreen>(bool promptForReturn) where TPreviouScreen : IGameScreen
+        {
+            // Allows the game to exit
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                MessageBoxResult messageBoxResult = MessageBoxResult.OK;
+                
+                if(promptForReturn)
+                {
+                    messageBoxResult = MessageBox.Show("Press OK to exit this screen.", "Warning", MessageBoxButton.OKCancel);
+                }
+
+                if(messageBoxResult == MessageBoxResult.OK)
+                    GoToPreviousScreen<TPreviouScreen>();
+            }
+        }
+
+        protected void HandleBackToExitButton()
+        {
+            // Allows the game to exit
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
+                MessageBoxResult messageBoxResult = MessageBoxResult.OK;
+
+                messageBoxResult = MessageBox.Show("Press OK to go exit.", "Warning", MessageBoxButton.OKCancel);
+                
+                if (messageBoxResult == MessageBoxResult.OK)
+                    Game.Exit();
+            }
         }
     }
 }
