@@ -1,15 +1,13 @@
 ﻿using System;
 using CazualGames.Controls;
 using CazualGames.FrameWork;
-using CazualGamesDemo.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
-namespace CazualGamesDemo
+namespace CazualGamesDemo.Screens
 {
-    public class StartScreen : GameScreen
+    public class StartScreen : DemoScreenBase
     {
         private Button _startGameButton;
         private Button _tutorialButton;
@@ -55,12 +53,18 @@ namespace CazualGamesDemo
 
             this.LoadContent(this.Game.Content);
 
-            float deltayY = _highScoresButtonTexture.Height + 10;
+            float deltayY = (_highScoresButtonTexture.Height * 1.5f) + 20;
 
-            _startGameButton = new Button(new Vector2(0, 100), _startButtonTexture.Width, _startButtonTexture.Height, true);
-            _highScoresButton = new Button(new Vector2(0, 100 + deltayY), _highScoresButtonTexture.Width, _highScoresButtonTexture.Height, true );
-            _tutorialButton = new Button(new Vector2(0, 100 + (deltayY*2)), _tutorialsButtonTexture.Width, _tutorialsButtonTexture.Height, true );
+            float xPosition = GetXPositionForButtons();
 
+            _startGameButton = new Button(new Vector2(xPosition, 100), (int)(_startButtonTexture.Width*1.5f), (int)(_startButtonTexture.Height*1.5), true);
+            _highScoresButton = new Button(new Vector2(xPosition, 100 + deltayY), (int)(_highScoresButtonTexture.Width*1.5f), (int)(_highScoresButtonTexture.Height*1.5), true );
+            _tutorialButton = new Button(new Vector2(xPosition, 100 + (deltayY*2)), (int)(_tutorialsButtonTexture.Width*1.5), (int)(_tutorialsButtonTexture.Height*1.5), true );
+        }
+
+        private float GetXPositionForButtons()
+        {
+            return CazualGame.ViewPortWidth/2f - _startButtonTexture.Width/2f;
         }
 
         public override void LoadContent(ContentManager content)

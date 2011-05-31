@@ -84,6 +84,7 @@
     <Compile Include="Controls\Button.cs" />
     <Compile Include="Controls\ButtonInputController.cs" />
     <Compile Include="Controls\IButtonInputController.cs" />
+    <Compile Include="FrameWork\CazualGame.cs" />
     <Compile Include="Core\CazualGamesException.cs" />
     <Compile Include="FrameWork\GameScreen.cs" />
     <Compile Include="FrameWork\GameScreenManager.cs" />
@@ -97,6 +98,8 @@
     <Compile Include="MarketPlace\MarketPlacePurchaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="Sprites\AnimatedSprite.cs" />
+    <Compile Include="Sprites\AttachedSprite.cs" />
     <Compile Include="Sprites\DateTimeNow.cs" />
     <Compile Include="Sprites\IDateTimeNow.cs" />
     <Compile Include="Sprites\Sprite.cs" />

@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace CazualGames.Licensing
+namespace CazualGames.MarketPlace.Licensing
 {
     public interface ILicensingService
     {
-        bool IsInTrialMode(Func<bool> isInTrialMode);
+        bool IsInTrialMode(Func<bool> additionalCriteriaFuction);
     }
 }
