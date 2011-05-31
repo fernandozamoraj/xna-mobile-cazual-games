@@ -15,23 +15,16 @@ namespace CazualGames.FrameWork
 
         public abstract void LoadContent(ContentManager content);
 
-        public virtual void Update(GameTime gameTime)
-        {
-            
-        }
+        public virtual void Update(GameTime gameTime){}
 
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
+        public virtual void Draw(SpriteBatch spriteBatch){}
 
-        }
-
-        public virtual void Unload()
-        {
-        }
+        public virtual void Unload(){}
 
         public IGameScreenManager GameScreenManager { get; set; }
 
         public Game Game { get; set; }
+
         public void NavigateToScreen<T>() where T : IGameScreen
         {
             GameScreenManager.ChangeScreenTo<T>();

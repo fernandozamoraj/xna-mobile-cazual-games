@@ -63,5 +63,10 @@ namespace CazualGames.FrameWork
                 throw new CazualGamesException(Messages.ManagerFailedToAddGameScreen, exception);
             }
         }
+
+        public void UnloadAllContent()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

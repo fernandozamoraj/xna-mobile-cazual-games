@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace CazualGames.Licensing
+namespace CazualGames.MarketPlace.Licensing
 {
     public class MockLicensingService: ILicensingService
     {
