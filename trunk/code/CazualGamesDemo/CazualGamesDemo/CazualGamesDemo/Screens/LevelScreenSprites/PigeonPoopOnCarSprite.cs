@@ -11,13 +11,14 @@ namespace CazualGamesDemo.Screens.LevelScreenSprites
 {
     public class PigeonPoopOnCarSprite : AttachedSprite
     {
-        public PigeonPoopOnCarSprite(Rectangle viewPort) : base(viewPort, 0)
+        public PigeonPoopOnCarSprite(Rectangle viewPort) : base(viewPort, 0, 30)
         {
         }
 
         public override void Load(ContentManager content)
         {
             this.SpriteTexture = content.Load<Texture2D>("pigeonpoop");
+            this.TextureList.Add(SpriteTexture);
         }
 
         public override bool IsActive

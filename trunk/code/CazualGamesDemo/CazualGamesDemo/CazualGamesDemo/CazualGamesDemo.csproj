@@ -87,6 +87,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Screens\DumbMonkeyScreen.cs" />
+    <Compile Include="Screens\DumMonkeySprites\MarioSprite.cs" />
     <Compile Include="Services\ILeaderBoardService.cs" />
     <Compile Include="Services\Leader.cs" />
     <Compile Include="Services\LeaderBoardService.cs" />
