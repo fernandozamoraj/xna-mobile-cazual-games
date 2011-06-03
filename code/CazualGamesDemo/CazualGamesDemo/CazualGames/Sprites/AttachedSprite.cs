@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace CazualGames.Sprites
 {
-    public abstract class AttachedSprite : Sprite
+    public abstract class AttachedSprite : AnimatedSprite
     {
         private Sprite _parent;
         private Timer _lifeTimeTimer;
@@ -22,7 +22,7 @@ namespace CazualGames.Sprites
             }
         }
 
-        protected AttachedSprite(Rectangle viewPort, int lifeTimeInMilliSeconds) : base(viewPort)
+        protected AttachedSprite(Rectangle viewPort, int lifeTimeInMilliSeconds, int timeBetweenTexturesInMilliseconds) : base(viewPort, timeBetweenTexturesInMilliseconds, new DateTimeNow())
         {
             ViewPort = viewPort;
             _lifeTimeInMilliSeconds = lifeTimeInMilliSeconds;
