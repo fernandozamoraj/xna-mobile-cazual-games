@@ -10,8 +10,10 @@ namespace CazualGamesDemo.Screens.DumMonkeySprites
     {
         private double _fallingSpeed;
         private double _walkingSpeed = 10;
+        private bool _isJumping = false;
         private bool _isFalling;
         private double _climbingSpeed = 10;
+        private double _jumpedFrom = 0;
 
         public override void Load(Microsoft.Xna.Framework.Content.ContentManager content)
         {
@@ -58,6 +60,29 @@ namespace CazualGamesDemo.Screens.DumMonkeySprites
             _climbingSpeed = 10;
         }
 
+        public void Jump()
+        {
+            if(!_isJumping)
+            {
+                _isJumping = true;
+                _fallingSpeed = -1.2f;
+                _jumpedFrom = Location.Y;
+            }
+        }
+
+        private void UpdateJump()
+        {
+            if(_isJumping)
+            {
+                _fallingSpeed *= .97;
+
+                if(_fallingSpeed < .01f)
+                {
+                    BeginFalling();
+                }
+            }
+        }
+
         public void Clamp(double leftLimit, double rightLimit)
         {
             if (_walkingSpeed < 0 && Location.X < leftLimit)
@@ -77,14 +102,29 @@ namespace CazualGamesDemo.Screens.DumMonkeySprites
         {
             base.Update(gameTime);
 
-            _fallingSpeed = _fallingSpeed * 1.09f;
+            if(_isFalling)
+            {
+                _fallingSpeed = _fallingSpeed * 1.09f;
+            }
+
+            UpdateJump();
+
+
 
             Location = new Vector2((float)(Location.X + (float)_walkingSpeed), (float)(Location.Y + (float)_fallingSpeed));
+
+            if (Location.Y > _jumpedFrom)
+                Location = new Vector2(Location.X, (float)_jumpedFrom);
         }
 
         public override bool IsActive
         {
             get { return true; }
+        }
+
+        public void StopWalking()
+        {
+            _walkingSpeed = 0;
         }
     }
 }

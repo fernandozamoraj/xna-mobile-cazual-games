@@ -45,6 +45,7 @@ namespace CazualGamesDemo.Screens
             HandleBackToPreviousScreenButton<StartScreen>(true);
 
             _poopButton.Update();
+            _pigeon.Update(gameTime);
 
             DropPigeonPoop();
 

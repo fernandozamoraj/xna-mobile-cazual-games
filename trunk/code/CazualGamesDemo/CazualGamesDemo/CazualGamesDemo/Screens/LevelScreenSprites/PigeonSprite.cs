@@ -8,7 +8,7 @@ namespace CazualGamesDemo.Screens.LevelScreenSprites
 {
     public class PigeonSprite : AnimatedSprite
     {
-        public PigeonSprite(Rectangle viewPort, Vector2 initialLocation) : base(viewPort, 150, new DateTimeNow())
+        public PigeonSprite(Rectangle viewPort, Vector2 initialLocation) : base(viewPort, 70, new DateTimeNow())
         {
             Location = new Vector2(initialLocation.X, initialLocation.Y);
         }
