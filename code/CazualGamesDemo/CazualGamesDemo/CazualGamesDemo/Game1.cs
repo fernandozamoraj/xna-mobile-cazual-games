@@ -31,6 +31,7 @@ namespace CazualGamesDemo
             RegisterGameScreen<LevelScreen>(new LevelScreen());
             RegisterGameScreen<HighScoresScreen>(new HighScoresScreen());
             RegisterGameScreen<TutorialScreen>(new TutorialScreen());
+            RegisterGameScreen<DumbMonkeyScreen>(new DumbMonkeyScreen());
         }
 
         protected override void SetInitialScreen()

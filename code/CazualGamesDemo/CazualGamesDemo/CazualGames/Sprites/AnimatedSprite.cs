@@ -27,12 +27,6 @@ namespace CazualGames.Sprites
 
             if (TextureList.Count > 0)
             {
-                if (_timer.HasTheTimePassed())
-                {
-                    _currentImage = (_currentImage + 1)%TextureList.Count;
-                    _timer.ReStart();
-                }
-
                 if(IsActive)
                     spriteBatch.Draw(TextureList[_currentImage], Location, Color.White);
             }
@@ -55,9 +49,22 @@ namespace CazualGames.Sprites
                 SpriteTexture = TextureList[0];
         }
 
+        private double timeElapsed = 0;
+
         public override void Update(GameTime gameTime)
         {
             SetSpriteTexture();
+
+            timeElapsed += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (TextureList.Count > 0)
+            {
+                if (_timer.HasTheTimePassed())
+                {
+                    _currentImage = (_currentImage + 1)%TextureList.Count;
+                    _timer.ReStart();
+                }
+            }
         }
     }
 }
